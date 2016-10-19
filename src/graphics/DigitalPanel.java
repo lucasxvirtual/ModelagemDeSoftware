@@ -8,30 +8,33 @@ import javax.swing.JPanel;
 
 import controller.Controller;
 import interfaces.Observed;
+import interfaces.Observed.Get;
 import interfaces.Observer;
 
 public class DigitalPanel extends JPanel implements Observer {
 
-	JLabel horas = new JLabel();
-	JLabel doisPontos = new JLabel(":");
-	JLabel minutos = new JLabel();
+	private JLabel hours = new JLabel();
+	private JLabel divisor = new JLabel(":");
+	private JLabel minutes = new JLabel();
+	private Controller controller;
 	
 	public DigitalPanel(){
-		Controller.getInstance().add(this);
+		controller = Controller.getInstance();
+		controller.add(this);
 	}
 	@Override
 	public void paintComponent(Graphics g){
 		
-		horas.setText(String.format("%02d", Controller.getInstance().get(1)));
-		minutos.setText(String.format("%02d", Controller.getInstance().get(2)));
+		hours.setText(String.format("%02d", controller.get(Get.Hour)));
+		minutes.setText(String.format("%02d", controller.get(Get.Minute)));
 		
 		super.paintComponent(g);
-		horas.setFont(new Font("Arial", Font.BOLD, 80));
-		doisPontos.setFont(new Font("Arial", Font.BOLD, 80));
-		minutos.setFont(new Font("Arial", Font.BOLD, 80));
-		this.add(horas).setBounds(5, 5, 90, 90);
-		this.add(doisPontos).setBounds(100, 5, 90, 90);
-		this.add(minutos).setBounds(130, 5, 90, 90);
+		hours.setFont(new Font("Arial", Font.BOLD, 80));
+		divisor.setFont(new Font("Arial", Font.BOLD, 80));
+		minutes.setFont(new Font("Arial", Font.BOLD, 80));
+		this.add(hours).setBounds(5, 5, 90, 90);
+		this.add(divisor).setBounds(100, 5, 90, 90);
+		this.add(minutes).setBounds(130, 5, 90, 90);
 	}
 	@Override
 	public void notify(Observed o) {

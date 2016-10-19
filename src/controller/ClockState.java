@@ -4,8 +4,8 @@ public abstract class ClockState {
 	//TODO: substituir por Clock
 	protected static Clock clock;
 	
-	public static ClockState getInitialState(Clock c){
-		clock = c;
+	public static ClockState getInitialState(Clock _clock){
+		clock = _clock;
 		return new ClockView();
 	}
 	

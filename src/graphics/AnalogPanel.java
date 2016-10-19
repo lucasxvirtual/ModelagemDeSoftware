@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import controller.Clock;
 import controller.Controller;
 import interfaces.Observed;
+import interfaces.Observed.Get;
 import interfaces.Observer;
 
 public class AnalogPanel extends JPanel implements Observer{
@@ -21,10 +22,11 @@ public class AnalogPanel extends JPanel implements Observer{
 	private Graphics2D g2d;
 	private int diameter;
 	private BufferedImage bufferedImage;
+	private Controller controller;
 	
 	public AnalogPanel(){
-		
-		Controller.getInstance().add(this);
+		controller = Controller.getInstance();
+		controller.add(this);
 		
 		try{
 			bufferedImage = ImageIO.read(getClass().getResource("/images/analogico.jpg"));
@@ -44,20 +46,26 @@ public class AnalogPanel extends JPanel implements Observer{
 	
 	public void paintPointers(){
 		diameter = 450;
-		int handMax = diameter/2;
 		
+		int handMax = 200;
+		g2d.setColor(Color.BLUE);
+		double seconds = controller.get(Get.Second)/60.0;
+		drawRadius(seconds, -diameter/16, handMax);
+		
+		handMax = 150;
 		Stroke strokeMinute = new BasicStroke(2f);
 		g2d.setStroke(strokeMinute);
 		g2d.setColor(Color.RED);
 		
-		double minutes = Controller.getInstance().get(2)/60.0;
+		double minutes = (controller.get(Get.Minute)+seconds)/60.0;
 		drawRadius(minutes, 0, handMax);
 		
+		handMax = 120;
 		Stroke strokeHour = new BasicStroke(4f);
 		g2d.setStroke(strokeHour);
 		g2d.setColor(Color.BLACK);
 		
-		double hours = (Controller.getInstance().get(1)+minutes)/12.0;
+		double hours = (controller.get(Get.Hour)+minutes)/12.0;
 		drawRadius(hours, 0, handMax);
 	}
 	

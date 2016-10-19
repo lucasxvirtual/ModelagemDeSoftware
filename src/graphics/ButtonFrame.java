@@ -4,8 +4,11 @@ import javax.swing.JFrame;
 
 public class ButtonFrame extends JFrame{
 	
+	ButtonPanel buttonPanel;
+	
 	public ButtonFrame(){
-		ButtonPanel buttonPanel = new ButtonPanel();
+		buttonPanel = new ButtonPanel();
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.add(buttonPanel);
 	}
 

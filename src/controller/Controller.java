@@ -13,29 +13,14 @@ import interfaces.Observer;
 
 public class Controller implements Observed, Observer{
 	
-	private int decSecond = 0;
 	private List<Observer> lst = new ArrayList<Observer>();
 	private static Controller inst;
+	private static Clock clock;
 
 	private Controller(){
-		
-		Clock.getInstance().add(this);
-		
-		ActionListener changeClock = new ActionListener() {
+		clock = Clock.getInstance();
+		clock.add(this);
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				decSecond++;
-				if(decSecond == 10){
-					decSecond = 0;
-					Clock.getInstance().incMinute();
-				}
-				
-			}
-        };
-        Timer timer = new Timer(100,changeClock);
-        timer.start();
 	}
 	
 	public static Controller getInstance(){
@@ -57,8 +42,8 @@ public class Controller implements Observed, Observer{
 	}
 
 	@Override
-	public int get(int i) {
-		return Clock.getInstance().get(i);
+	public int get(Get i) {
+		return clock.get(i);
 	}
 	
 	
