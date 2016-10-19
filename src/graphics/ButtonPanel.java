@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class ButtonPanel extends JPanel {
-	private JButton digitalButton = new JButton("Ajustar horas");
-	private JButton analogButton = new JButton("Ajustar minutos");
+	private ButtonA buttonA = new ButtonA("A");
+	private ButtonB buttonB = new ButtonB("B");
 	public ButtonPanel(){
 		
 	}
@@ -18,8 +18,8 @@ public class ButtonPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		this.add(digitalButton).setBounds(20, 20, 200, 100);
-		this.add(analogButton).setBounds(240, 20, 200, 100);
+		this.add(buttonA).setBounds(20, 20, 200, 100);
+		this.add(buttonB).setBounds(240, 20, 200, 100);
 	}
 }
 
