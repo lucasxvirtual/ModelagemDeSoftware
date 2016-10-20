@@ -20,6 +20,8 @@ public class Clock implements Observed {
 	private ClockState clockState;
 	private static Clock inst;
 	private List<Observer> lst = new ArrayList<Observer>();
+	private Timer timer;
+	private boolean isTimerRunning = true;
 	
 	private Clock(int hour, int minute){
 		clockState = ClockState.getInitialState(this);
@@ -39,7 +41,7 @@ public class Clock implements Observed {
 				
 			}
         };
-        Timer timer = new Timer(100,changeClock);
+        timer = new Timer(100,changeClock);
         timer.start();
 	}
 	
@@ -53,6 +55,10 @@ public class Clock implements Observed {
 		hour++;
 		if(hour > 23)
 			hour = 0;
+		
+		ListIterator<Observer> li = lst.listIterator();
+		while(li.hasNext())
+			li.next().notify(this);
 	}
 	
 	public void incMinute(){
@@ -121,6 +127,20 @@ public class Clock implements Observed {
 		else if (i == Get.Second)
 			return this.getSecond();
 		return 0;
+	}
+	
+	public void stopTimer(){
+		timer.stop();
+		isTimerRunning = false;
+	}
+	
+	public void startTimer(){
+		timer.start();
+		isTimerRunning = true;
+	}
+	
+	public boolean isTimerRunning(){
+		return isTimerRunning;
 	}
 
 }

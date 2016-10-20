@@ -1,5 +1,10 @@
 package controller;
 public class ClockChangeHour extends ClockState {
+	
+	public ClockChangeHour(){
+		if(clock.isTimerRunning())
+			clock.stopTimer();
+	}
 
 	@Override
 	public ClockState clickButtonOne() {

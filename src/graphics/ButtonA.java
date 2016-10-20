@@ -1,14 +1,25 @@
 package graphics;
 
-public class ButtonA extends ButtonTemplate{
+import java.awt.Color;
 
-	public ButtonA(String s) {
-		super(s);
+import controller.Controller;
+
+public class ButtonA extends ButtonTemplate{
+	
+	public ButtonA(String s){
+		this.setText(s);
+		this.setBackground(Color.GRAY);
 	}
 
 	@Override
-	public void buttonAction() {
-		//TODO tratar caso de acao do botao
+	public void pressed() {
+		this.setBackground(Color.CYAN);
+	}
+
+	@Override
+	public void released() {
+		Controller.getInstance().buttonPressed('A');
+		this.setBackground(Color.GRAY);
 	}
 
 }

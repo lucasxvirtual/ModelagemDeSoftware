@@ -1,16 +1,25 @@
 package graphics;
 
-public class ButtonB extends ButtonTemplate {
+import java.awt.Color;
 
-	public ButtonB(String s) {
-		super(s);
-		// TODO Auto-generated constructor stub
+import controller.Controller;
+
+public class ButtonB extends ButtonTemplate{
+
+	public ButtonB(String s){
+		this.setText(s);
+		this.setBackground(Color.GRAY);
+	}
+	
+	@Override
+	public void pressed() {
+		this.setBackground(Color.CYAN);
 	}
 
 	@Override
-	public void buttonAction() {
-		// TODO Auto-generated method stub
-		
+	public void released() {
+		Controller.getInstance().buttonPressed('B');
+		this.setBackground(Color.GRAY);
 	}
 
 }

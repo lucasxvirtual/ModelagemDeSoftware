@@ -46,5 +46,10 @@ public class Controller implements Observed, Observer{
 		return clock.get(i);
 	}
 	
+	public void buttonPressed(char c){
+		if(c == 'A')
+			clock.clickButtonOne();
+		else clock.clickButtonTwo();
+	}
 	
 }

@@ -1,20 +1,19 @@
 package graphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class ButtonState {
 
-	protected static ButtonA buttonA;
-	protected static ButtonB buttonB;
+	protected static Map<String, Boolean> map = new HashMap<String, Boolean>();
 	
-	public static ButtonState getButtonState(ButtonTemplate buttonTemplate){
-		if(buttonTemplate instanceof ButtonA){
-			buttonA = (ButtonA)buttonTemplate;
-		} else {
-			buttonB = (ButtonB)buttonTemplate;
-		}
+	public static ButtonState getState(){
+		map.put("A", false);
+		map.put("B", false);
 		
-		return new ButtonReleased(buttonTemplate);
+		return new AllReleased();
 	}
 	
-	public abstract ButtonState actionOccur();
+	public abstract ButtonState buttonPressed(ButtonTemplate button);
 	
 }
