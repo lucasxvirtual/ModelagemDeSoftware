@@ -143,4 +143,9 @@ public class Clock implements Observed {
 		return isTimerRunning;
 	}
 
+	@Override
+	public Status getStatus() {
+		return clockState.status();
+	}
+
 }

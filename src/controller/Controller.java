@@ -51,5 +51,10 @@ public class Controller implements Observed, Observer{
 			clock.clickButtonOne();
 		else clock.clickButtonTwo();
 	}
+
+	@Override
+	public Status getStatus() {
+		return clock.getStatus();
+	}
 	
 }

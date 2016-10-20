@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
@@ -7,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import controller.Status;
 import interfaces.Observed;
 import interfaces.Observed.Get;
 import interfaces.Observer;
@@ -17,11 +19,16 @@ public class DigitalPanel extends JPanel implements Observer {
 	private JLabel divisor = new JLabel(":");
 	private JLabel minutes = new JLabel();
 	private Controller controller;
+	private Status status;
+	private DigitalState digitalState;
 	
 	public DigitalPanel(){
 		controller = Controller.getInstance();
 		controller.add(this);
+		status = controller.getStatus();
+		digitalState = DigitalState.getState(this);
 	}
+	
 	@Override
 	public void paintComponent(Graphics g){
 		
@@ -38,6 +45,19 @@ public class DigitalPanel extends JPanel implements Observer {
 	}
 	@Override
 	public void notify(Observed o) {
+//		System.out.println(status + " : " + controller.getStatus());
+		if(status != controller.getStatus()){
+			status = controller.getStatus();
+			digitalState = digitalState.statusChanged();
+		}
 		repaint();
+	}
+	
+	public void changeHourLabelColor(Color color){
+		hours.setForeground(color);
+	}
+	
+	public void changeMinuteLabelColor(Color color){
+		minutes.setForeground(color);
 	}
 }
