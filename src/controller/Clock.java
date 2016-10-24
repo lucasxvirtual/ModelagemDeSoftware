@@ -11,7 +11,7 @@ import javax.swing.Timer;
 import interfaces.Observed;
 import interfaces.Observer;
 
-public class Clock implements Observed {
+public class Clock implements Observed, ActionListener {
 	
 	private int hour;
 	private int minute;
@@ -27,21 +27,7 @@ public class Clock implements Observed {
 		clockState = ClockState.getInitialState(this);
 		this.hour = hour;
 		this.minute = minute;
-		
-		ActionListener changeClock = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				decSecond++;
-				if(decSecond == 10){
-					decSecond = 0;
-					Clock.getInstance().incSecond();
-				}
-				
-			}
-        };
-        timer = new Timer(100,changeClock);
+        timer = new Timer(100,this);
         timer.start();
 	}
 	
@@ -146,6 +132,15 @@ public class Clock implements Observed {
 	@Override
 	public Status getStatus() {
 		return clockState.status();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		decSecond++;
+		if(decSecond == 10){
+			decSecond = 0;
+			Clock.getInstance().incSecond();
+		}
 	}
 
 }
